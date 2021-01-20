@@ -1,0 +1,13 @@
+<div class="text-center mt-3 mb-3">
+  <form>
+      <input
+          #buscaDescricao
+          class="rounded"
+          type="search"
+          placeholder="search..."
+          autofocus
+          (keyup) = "filter = buscaDescricao.value">
+  </form>
+</div>
+{{ filter }}
+<ap-photos [photos]="photos | filterByDescription: filter"></ap-photos>
