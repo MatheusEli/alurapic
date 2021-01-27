@@ -10,14 +10,15 @@ import { AuthService } from 'src/app/core/auth/auth.service';
 })
 export class SigninComponent implements OnInit {
   loginForm: FormGroup;
-  @ViewChild('userNameInput') userNameInput: ElementRef;
+  @ViewChild('userNameInput', {static: false}) userNameInput: ElementRef<HTMLInputElement>;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
     private platformDetector: PlatformDetectorService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
