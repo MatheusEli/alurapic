@@ -17,7 +17,7 @@ export class AuthService {
     .pipe(
       tap(res => {
         const authToken = res.headers.get('x-access-token');
-        this.userService.setToken(authToken); //Arquiva no navegador o Token de acesso.
+        this.userService.setToken(authToken as string); //Arquiva no navegador o Token de acesso.
         console.log(authToken);
       })
     )

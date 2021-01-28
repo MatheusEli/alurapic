@@ -10,7 +10,7 @@
   })
   export class UserService{
 
-    private userSubject = new BehaviorSubject<User>(null);
+    private userSubject = new BehaviorSubject<User>(null as any);
     private userName:string;
     constructor(private tokenService: TokenService){
 
@@ -37,7 +37,7 @@
     logout(): void{
 
       this.tokenService.removeToken();
-      this.userSubject.next(null);
+      this.userSubject.next(null as any);
     }
 
     isLogged(): boolean{
