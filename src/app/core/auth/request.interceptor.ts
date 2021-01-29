@@ -7,6 +7,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
 
@@ -19,7 +20,7 @@ export class RequestInterceptor implements HttpInterceptor {
       const token = this.tokenService.getToken();
       req = req.clone({
         setHeaders:{
-          'x-access-token': token
+          'x-access-token':token
         }
       });
     }

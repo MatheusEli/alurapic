@@ -5,22 +5,33 @@ import { Observable } from 'rxjs';
 import { Photo } from './photo';
 
 @Injectable({
-  providedIn:'root'
+  providedIn: 'root',
 })
-export class PhotoService{
-
+export class PhotoService {
   private API = 'http://localhost:3000/';
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient) {}
 
-  listFromUser(userName: string) : Observable<Photo[]>{
-    return this.http.get<Photo[]>(this.API+userName+'/photos');
+  listFromUser(userName: string): Observable<Photo[]> {
+    return this.http.get<Photo[]>(this.API + userName + '/photos');
   }
 
   listFromUserPaginated(userName: string, page: number) {
-    const params = new HttpParams()
-        .append('page', page.toString());
+    const params = new HttpParams().append('page', page.toString());
 
-    return this.http
-        .get<Photo[]>(this.API + '' + userName + '/photos', { params: params });
-}
+    return this.http.get<Photo[]>(this.API + '' + userName + '/photos', {
+      params: params,
+    });
+  }
+
+  upLoad(
+    description: string,
+    allowComments: boolean,
+    arquivo: File
+  ): Observable<any> {
+    const formData = new FormData();
+    formData.append('description', description);
+    formData.append('allowComments', allowComments ? 'true' : 'false');
+    formData.append('imageFile', arquivo);
+    return this.http.post(this.API + 'photos/upload', formData);
+  }
 }
