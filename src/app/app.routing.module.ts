@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { Resolver } from './photos/photos-list/photos-list.resolver';
+import { AuthGuard } from './core/auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -20,7 +21,7 @@ const routes: Routes = [
     component: PhotosListComponent,
     resolve: { photos: Resolver },
   },
-  { path: 'p/add', component: PhotoFormComponent },
+  { path: 'p/add', component: PhotoFormComponent, canActivate: [AuthGuard] },
   { path: '**', component: NotFoundComponent },
 ];
 
