@@ -1,3 +1,4 @@
+import { PhotoComment } from './photo-comment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -33,5 +34,18 @@ export class PhotoService {
     formData.append('allowComments', allowComments ? 'true' : 'false');
     formData.append('imageFile', arquivo);
     return this.http.post(this.API + 'photos/upload', formData);
+  }
+
+  findById(id: number): Observable<Photo>{
+    return this.http.get<Photo>(this.API+ 'photos/' +id);
+  }
+
+  getComments(id: number): Observable<PhotoComment[]>{
+    return this.http.get<PhotoComment[]>(this.API+'photos/'+id+'/comments');
+  }
+
+  addComment(id:number, commentText:string): Observable<Object>{
+
+    return this.http.post(this.API + 'photos/' + id + '/comments', {commentText});
   }
 }

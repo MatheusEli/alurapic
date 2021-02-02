@@ -1,3 +1,4 @@
+import { PhotoDetailsComponent } from './photos/photo-details/photo-details.component';
 import { PhotoFormComponent } from './photos/photo-form/photo-form.component';
 import { PhotosListComponent } from './photos/photos-list/photos-list.component';
 import { NgModule } from '@angular/core';
@@ -22,6 +23,7 @@ const routes: Routes = [
     resolve: { photos: Resolver },
   },
   { path: 'p/add', component: PhotoFormComponent, canActivate: [AuthGuard] },
+  { path: 'p/:photoId', component: PhotoDetailsComponent },
   { path: '**', component: NotFoundComponent },
 ];
 

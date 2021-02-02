@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { DarkenOnHover } from './../../shared/directive/darken-on-hover/darken-on-hover.module';
 import { PhotoModule } from './../photo/photo.module';
 import { CommonModule } from '@angular/common';
@@ -17,6 +18,6 @@ import { SearchComponent } from './search/search.component';
     BotaoComponent,
     SearchComponent
   ],
-  imports: [CommonModule, PhotoModule, CardModule, DarkenOnHover]
+  imports: [CommonModule, PhotoModule, CardModule, DarkenOnHover, RouterModule]
 })
 export class PhotosListModule { }
