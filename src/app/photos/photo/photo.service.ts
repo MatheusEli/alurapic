@@ -48,4 +48,8 @@ export class PhotoService {
 
     return this.http.post(this.API + 'photos/' + id + '/comments', {commentText});
   }
+
+  removePhoto(id: number): Observable<Object>{
+    return this.http.delete(this.API + 'photos/' +id);
+  }
 }

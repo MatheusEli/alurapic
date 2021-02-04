@@ -1,4 +1,4 @@
-<div class="bg-white border" *ngIf = "(photo$ | async) as photo">
+<div class="bg-white border" *ngIf="photo$ | async as photo">
   <div class="row">
     <div class="col-lg-4">
       <ap-photo [url]="photo.url" [description]="photo.description"></ap-photo>
@@ -6,11 +6,20 @@
 
     <div class="col-lg-8 p-4">
       <small>
-        <p class="text-left break-word">{{photo.description}}</p>
-        <hr>
+        <p class="text-left break-word">{{ photo.description }}</p>
+        <div class="text-left mb-4">
+          <i class="fa fa-comment-o fa-2x mr-2 ml-2"></i>{{ photo.comments }}
+          <i photoOwnerOnly [photoOwner] = "photo" (click) = "remove()" class="fa fa-trash-o fa-2x pull-right"></i>
+        </div>
+        <hr />
       </small>
-      <ap-photo-comments *ngIf = "photo.allowComments; else warnning"[photoId] = "photoId"></ap-photo-comments>
-      <ng-template #warnning><p>User has disabled comments for this photo</p></ng-template>
+      <ap-photo-comments
+        *ngIf="photo.allowComments; else warnning"
+        [photoId]="photoId"
+      ></ap-photo-comments>
+      <ng-template #warnning
+        ><p>User has disabled comments for this photo</p></ng-template
+      >
     </div>
   </div>
 </div>
