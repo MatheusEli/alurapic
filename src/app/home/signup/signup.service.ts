@@ -1,9 +1,10 @@
+import { environment } from './../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NewUser } from './new-user';
 
-const API = 'http://localhost:3000'
+const API = environment.API
 @Injectable()
 export class SignUpService{
 
