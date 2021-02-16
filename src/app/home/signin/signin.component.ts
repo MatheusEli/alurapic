@@ -1,13 +1,14 @@
 import { PlatformDetectorService } from './../../core/platform/PlatformDetectorService.service';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
   templateUrl: './signin.component.html',
 })
 export class SignInComponent implements OnInit,AfterViewInit{
+  fromUrl: string;
   loginForm: FormGroup;
   @ViewChild('userNameInput', {static: false}) userNameInput: ElementRef<HTMLInputElement>;
 
@@ -15,11 +16,13 @@ export class SignInComponent implements OnInit,AfterViewInit{
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private platformDetector: PlatformDetectorService
+    private platformDetector: PlatformDetectorService,
+    private activatedRoute: ActivatedRoute
   ) {
   }
 
   ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe(params => this.fromUrl = params['fromUrl']);
     this.loginForm = this.formBuilder.group({
       userName: ['', Validators.required],
       password: ['', Validators.required],
@@ -36,10 +39,7 @@ export class SignInComponent implements OnInit,AfterViewInit{
     const password = this.loginForm.get('password')?.value;
 
     this.authService.authenticate(userName, password).subscribe(
-      () => {
-        console.log('AUTENTICAÇÃO APROVADA');
-        this.router.navigate(['users', userName])
-      },
+      () => this.fromUrl ? this.router.navigateByUrl(this.fromUrl) : this.router.navigate(['users', userName]),
       err => {
         console.log(err);
         this.loginForm.reset();
