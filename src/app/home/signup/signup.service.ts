@@ -11,10 +11,10 @@ export class SignUpService{
   constructor(private http: HttpClient){}
 
   checkUserNameTaken(userName: string): Observable<any>{
-    return this.http.get(API+'/user/exists/'+userName);
+    return this.http.get(API+'user/exists/'+userName);
   }
 
   signUp(newUser: NewUser): Observable<any>{
-    return this.http.post(API+'/user/signup/',newUser);
+    return this.http.post(API+'user/signup/',newUser);
   }
 }

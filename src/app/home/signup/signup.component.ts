@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NewUser } from './new-user';
 import { Router } from '@angular/router';
 import { PlatformDetectorService } from 'src/app/core/platform/PlatformDetectorService.service';
+import { userNamePasswordValidator } from './username-password.validator';
 
 @Component({
   templateUrl: './signup.component.html',
@@ -49,7 +50,7 @@ export class SignUpComponent implements AfterViewInit {
           Validators.maxLength(14),
         ],
       ],
-    });
+    }, {validator: userNamePasswordValidator});
 
   }
   ngAfterViewInit(): void {
@@ -58,7 +59,9 @@ export class SignUpComponent implements AfterViewInit {
   }
 
   signUp(): void{
-    const newUser = this.signUpForm.getRawValue() as NewUser;
-    this.signUpService.signUp(newUser).subscribe(() => this.router.navigate(['']), err => console.log(err))
+    if(this.signUpForm.valid && !this.signUpForm.pending){
+      const newUser = this.signUpForm.getRawValue() as NewUser;
+      this.signUpService.signUp(newUser).subscribe(() => this.router.navigate(['']), err => console.log(err))
+    }
   }
 }
